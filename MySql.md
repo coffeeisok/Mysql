@@ -366,3 +366,23 @@ ENUM (‘待支付’,‘已发货’,‘已完成’)
 constraint
 
 references
+
+
+
+## 空间数据库
+
+### `ST_Contains`
+
+* `ST_Contains` 是 **空间数据库（如 MySQL、PostgreSQL+PostGIS 等）提供的核心空间函数**，是空间分析中 “包含关系” 判断的基础工具
+
+* ```mysql
+  ST_Contains(几何对象A, 几何对象B)
+  ```
+
+  * 作用：用于判断 **几何对象A**是否完全包含**几何对象B**
+  * 返回值：
+    - `1`（真）：A 完全包含 B；
+    - `0`（假）：A 不包含 B；
+    - `NULL`：如果 A 或 B 为无效几何。
+
+* 
