@@ -119,8 +119,6 @@
   - 插入时忽略重复键
 
 
-
-
 ## 4． 查询
 
 * 查询数据库
@@ -165,7 +163,8 @@
 
     - `LINIT number`：（可选）限制返回行数
 
-  
+
+
 
 ## 5． 备份
 
@@ -187,103 +186,100 @@
 
 ## 6． Alter
 
-(1) 添加列
+1. 添加列
 
-ALTER TABLE 表名
+   - ```mysql
+     -- 添加列
+     ALTER TABLE 表名
+     ADD COLUMN 列名 数据类型 [约束];
+     
+     -- 添加一个允许 NULL 的邮箱字段
+     ALTER TABLE Student
+     ADD COLUMN Email VARCHAR (100);
+     
+     -- 添加一个非空且带默认值的字段
+     ALTER TABLE Product
+     ADD COLUMN Stock INT NOT NULL DEFAULT O;
+     ```
 
-ADD COLUMN 列名 数据类型 \[约束];
+2. 删除列
 
-\-- 添加一个允许 NULL 的邮箱字段
+   - ```mysql
+     -- 删除列
+     ALTER TABLE 表名
+     DROP COLUMN 列名；
+     
+     -- 删除不再使用的旧字段
+     ALTER TABLE Student
+     DROP COLUMN OldPhone;
+     ```
 
-ALTER TABLE Student
+   - 
 
-ADD COLUMN Email VARCHAR (100);
+3. 修改列的数据类型
 
-\-- 添加一个非空且带默认值的字段
+   - ```mysql
+     -- 修改列的数据类型
+     ALTER TABLE 表名
+     MODIFY COLUMN 列名 新数据类型；
+     
+     -- 修改姓名字段长度
+     ALTER TABLE Student
+     MODIFY COLUMN Sname VARCHAR (100);
+     ```
 
-ALTER TABLE Product
+   - 
 
-ADD COLUMN Stock INT NOT NULL DEFAULT O;
+4. 重命名行
 
-(2) 删除列
+   - ```mysql
+     -- 重命名行
+     ALTER TABLE 表名
+     CHANGE COLUMN 旧列名 新列名 数据类型；
+     
+     -- 重命名并修改数据类型
+     ALTER TABLE Student
+     CHANGE COLUMN Sdept Department VARCHAR (50);
+     ```
 
-ALTER TABLE 表名
+   - 
 
-DROP COLUMN 列名；
+5. 重命名表
 
-\-- 删除不再使用的旧字段
+   - ```mysql
+     -- 重命名表
+     ALTER TABLE 旧表名
+     RENAME TO 新表名；
+     
+     -- 例:
+     ALTER TABLE 0ldStudents
+     RENAME TO NewStudents;
+     ```
 
-ALTER TABLE Student
+   - 
 
-DROP COLUMN OldPhone;
+6. 添加约束
 
-(3) 修改列的数据类型
+   - ```mysql
+     ALTER TABLE 表名
+     ADD CONSTRAINT 约束名 约束类型 (列名);
+     ```
 
-ALTER TABLE 表名
+   - 
 
-MODIFY COLUMN 列名 新数据类型；
+7. 删除约束
 
-\-- SQL Server: 将年龄字段从 INT 改为 SMALLINT
+   - ```mysql
+     -- 删除约束
+     ALTER TABLE 表名
+     DROP CONSTRAINT 约束名；
+     
+     -- 删除 CHECK 约束
+     ALTER TABLE Student
+     DROP CONSTRAINT CHK_Age;
+     ```
 
-ALTER TABLE Student
-
-ALTER COLUMN Sage SMALLINT;
-
-\-- MySQL: 修改姓名字段长度
-
-ALTER TABLE Student
-
-MODIFY COLUMN Sname VARCHAR (100);
-
-(4) 重命名行
-
-ALTER TABLE 表名
-
-CHANGE COLUMN 旧列名 新列名 数据类型；
-
-\-- SQL Server: 将 "Sdept" 重命名为 "Department"
-
-EXEC sp\_rename 'Student. Sdept', 'Department', 'COLUMN';
-
-\--MySQL: 重命名并修改数据类型
-
-ALTER TABLE Student
-
-CHANGE COLUMN Sdept Department VARCHAR (50);
-
-(5) 重命名表
-
-ALTER TABLE 旧表名
-
-RENAME TO 新表名；
-
-\-- SQL Server
-
-EXEC sp\_rename '0ldStudents', 'NewStudents';
-
-\--MySQL
-
-ALTER TABLE 0ldStudents
-
-RENAME TO NewStudents;
-
-(6) 添加约束
-
-ALTER TABLE 表名
-
-ADD CONSTRAINT 约束名 约束类型 (列名);
-
-(7) 删除约束
-
-ALTER TABLE 表名
-
-DROP CONSTRAINT 约束名；
-
-\-- 删除 CHECK 约束
-
-ALTER TABLE Student
-
-DROP CONSTRAINT CHK\_Age;
+## 
 
 ## 7． 其他零散语句
 
